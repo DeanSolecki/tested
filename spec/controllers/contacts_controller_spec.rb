@@ -23,7 +23,7 @@ describe ContactsController, :type => :controller do
 	shared_examples 'full access to contacts' do
 		describe 'GET #new' do
 			it "assigns a new Contact to @contact"
-			it "assigns a home , office, and mobile phone to the new contact"
+			it "assigns a home, office, and mobile phone to the new contact"
 			it "renders the :new template"
 		end
 
