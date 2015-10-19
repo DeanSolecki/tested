@@ -3,13 +3,7 @@ require 'rails_helper'
 feature 'User management' do
 	scenario 'adds a new user' do
 		admin = create(:admin)
-
-		visit root_path
-		click_link 'Log In'
-		fill_in 'Email', with: admin.email
-		fill_in 'Password', with: admin.password
-		click_button 'Log In'
-		expect(page).to have_content 'Logged in!'
+		sign_in admin
 
 		visit root_path
 		expect{
@@ -21,6 +15,7 @@ feature 'User management' do
 				with: 'secret123'
 			click_button 'Create User'
 		}.to change(User, :count).by(1)
+
 		expect(current_path).to eq users_path
 		expect(page).to have_content 'User was successfully created'
 		within 'h1' do
