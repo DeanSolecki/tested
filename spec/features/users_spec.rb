@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'User management', js: true do
-  scenario 'adds a new user' do
+  scenario 'admin can add a new user' do
     admin = create(:admin)
     sign_in admin
 
@@ -24,7 +24,7 @@ feature 'User management', js: true do
     expect(page).to have_content 'newuser@example.com'
   end
 
-  scenario "edit an existing user's email" do
+  scenario "admin can edit an existing user's email" do
     admin = create(:admin)
     sign_in admin
 
@@ -39,7 +39,29 @@ feature 'User management', js: true do
     expect(page).to have_content 'changed@example.com'
   end
 
-  scenario 'delete a user' do
+  scenario 'admin can delete a user' do
+    admin = create(:admin)
+    sign_in admin
+
+    user = create(:user)
+
+    visit root_path
+    click_link 'Users'
+    find(:deletehref, '/users/' + String(user.id)).click
+    a = page.driver.browser.switch_to.alert
+    a.accept
+    expect(page).to have_content 'User was successfully destroyed.'
+  end
+
+  scenario 'user/guest cannot delete/edit/create a user' do
+    user = create(:user)
+
+    visit root_path
+    expect(page).to_not have_content 'Users'
+
+    sign_in user
+    visit root_path
+    expect(page).to_not have_content 'Users'
   end
 
   scenario 'user signs in and out' do
