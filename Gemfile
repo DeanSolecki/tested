@@ -12,6 +12,7 @@ group :test do
 	gem 'launchy', '~> 2.4.2'
 	gem 'selenium-webdriver', '~> 2.48.0'
 	gem 'pry-rails'
+	gem 'shoulda-matchers', '~> 3.0'
 end
 
 gem 'bcrypt', '~> 3.1.7'
