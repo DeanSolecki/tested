@@ -7,10 +7,12 @@ describe ContactsController, :type => :controller do
     let(:simon) { create(:contact, lastname: 'Simon') }
 
     describe 'GET #index' do
+      subject { assigns(:contacts) }
+
       context 'with params[:letter]' do
         it 'populates an array of contacts starting with the letter' do
           get :index, letter: 'S'
-          expect(assigns(:contacts)).to match_array([stevens, simon])
+          is_expected.to match_array([stevens, simon])
         end
 
         it 'renders the :index template' do
@@ -22,7 +24,7 @@ describe ContactsController, :type => :controller do
       context 'without params[:letter]' do
         it "it populates an array of all contacts" do
           get :index
-          expect(assigns(:contacts)).to match_array([jones, stevens, simon])
+          is_expected.to match_array([jones, stevens, simon])
         end
 
         it "renders an array of all contacts" do
@@ -46,10 +48,12 @@ describe ContactsController, :type => :controller do
   end
 
   shared_examples 'full access to contacts' do
+    subject { assigns(:contact) }
+
     describe 'GET #new' do
       it "assigns a new Contact to contact" do
         get :new
-        expect(assigns(:contact)).to be_a_new(Contact)
+        is_expected.to be_a_new(Contact)
       end
 
       it "renders the :new template" do
@@ -63,7 +67,7 @@ describe ContactsController, :type => :controller do
 
       it "assigns the requested contact to contact" do
         get :edit, id: contact
-        expect(assigns(:contact)).to eq contact
+        is_expected.to eq contact
       end
 
       it "renders the :edit template" do

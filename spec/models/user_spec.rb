@@ -9,18 +9,18 @@ RSpec.describe User, :type => :model do
 
   describe "invalid params" do
     context "email" do
-      it "should be invalid without email" do
+      it "is invalid without email" do
         expect(build(:user, email:nil)).not_to be_valid
       end
 
-      it "should be invalid with duplicate email" do
+      it "is invalid with duplicate email" do
         user = create(:user, email: "dupy@test.com")
         expect(build(:user, email: "dupy@test.com")).not_to be_valid
       end
     end
 
     context "password" do
-      it "should be invalid without password" do
+      it "is invalid without password" do
         expect(build(:user, password:nil)).not_to be_valid
       end
     end
